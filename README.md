@@ -1,4 +1,4 @@
-# 2022 SINICA Project - Using joystick to control robot arms
+# 2022 SINICA Project - Control TM robot arm by joystick
 
 ### The purpose of this project is to read the joint angle of joystick and send the angle values to TM robot arm, which can make the trajectory of joystick and robot arm be the same. Also, We create a user interface to let user easier to use and to modify the parameters of the program. ###
 ---
