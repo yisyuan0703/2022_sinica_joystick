@@ -16,4 +16,5 @@ Here are three parts:
 ### (c) joystick_ui.py ###
 > After finishing modifying above programs, users can run this program directly. Users should connect the joystick, return the joint angle values to zero, and input (or import) initial values; then, when users connect the robot arm, the robot arm will move along the same path as the jotstick. Moreover, users can save the initial setting as a json file, and import them next time.
 ---
-### _Note: Please plug all devices before running the program, and do NOT change the initial value when running._
+### _Note: Please plug all devices before running the program, and do NOT change the initial value when running._ ###
+#### _This version hasn't been finished. If you have any problem, please contact b08502148@ntu.edu.tw._ ####
