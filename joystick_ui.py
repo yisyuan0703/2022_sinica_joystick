@@ -519,13 +519,13 @@ class myGUI(QWidget):
             index = self.index
             self.index += 1
             s = move_robot.s
+            s_ = move_robot.s_
 
             cmd_str = move_robot.cmd_ptp(n1,n2,n3,n4,n5,n6,index)
             cmd = bytes(cmd_str,"utf-8")
             print(cmd_str)
             s.send(cmd)
-            recv_data = s.recv(1024)
-            print("server send: "+ recv_data.decode()+'\r\n')
+            print(s_.recv(1024).decode()+'\n')
     
     def save_setting(self):
         input_data = {

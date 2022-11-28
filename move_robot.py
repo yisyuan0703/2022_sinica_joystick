@@ -6,11 +6,16 @@ HOST = "169.254.144.126" # the first three numbers should be the same as the TM 
 PORT = 5890 # port is fixed in TM Robot
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+PORT_ = 5891 # EtherSlave Port
+s_ = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 def connect():
     s.connect((HOST,PORT))
+    s_.connect((HOST,PORT_))
 
 def disconnect():
     s.close()
+    s_.close()
 
 def byte_xor(byte_a, byte_b):
     return bytes([a ^ b for a, b in zip(byte_a, byte_b)])
