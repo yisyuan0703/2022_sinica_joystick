@@ -356,8 +356,8 @@ class myGUI(QWidget):
         # set the label and angle
         self.label20 = QLabel('Information is written here ...', self)
         self.label20.move(title_w+blank_w, btn_h*2+blank_h*2+title_h*2+label_h*6)
-        self.label20.resize(label_w*2, label_h*4)
-        self.label20.setFont(QFont('Ubuntu', 12, QFont.Medium))
+        self.label20.resize(label_w*2, label_h*40)
+        self.label20.setFont(QFont('Ubuntu', 10))
         self.label20.setStyleSheet('color: black')
         self.label20.setAlignment(QtCore.Qt.AlignLeft)
 
@@ -446,7 +446,10 @@ class myGUI(QWidget):
         self.timer_read.start(80)
         self.timer_move = QtCore.QTimer()
         self.timer_move.timeout.connect(self.move_robot)
-        self.timer_move.start(80)
+        self.timer_move.start(200)
+        self.timer_recieve = QtCore.QTimer()
+        self.timer_recieve.timeout.connect(self.recieve_robot)
+        self.timer_recieve.start(1)
 
         # create the window
         self.setStyleSheet("background-color: Lightgray;")
@@ -507,6 +510,18 @@ class myGUI(QWidget):
                 self.angle4.setText(str(angle_list[3]))
                 self.angle5.setText(str(angle_list[4]))
                 self.angle6.setText(str(angle_list[5]))
+                
+    def recieve_robot(self):
+        if self.robot_conn == True:
+            s_ = move_robot.s_
+            s_r = s_.recv(2048).decode().split(',')
+            try:
+                self.label20.setText('joint1: {}\njoint2: {}\njoint3: {}\njoint4: {}\njoint5: {}\njoint6: {}\n'\
+                    .format(s_r[4].split('{')[1], s_r[5], s_r[6], s_r[7], s_r[8], s_r[9].split('}')[0]))            
+            except:
+                pass
+
+
 
     def move_robot(self):
         if self.joystick_conn == True and self.robot_conn == True:
@@ -519,14 +534,15 @@ class myGUI(QWidget):
             index = self.index
             self.index += 1
             s = move_robot.s
-            s_ = move_robot.s_
+            
 
             cmd_str = move_robot.cmd_ptp(n1,n2,n3,n4,n5,n6,index)
             cmd = bytes(cmd_str,"utf-8")
             print(cmd_str)
             s.send(cmd)
-            print(s_.recv(1024).decode()+'\n')
-    
+            # print(s.recv(2048))
+
+
     def save_setting(self):
         input_data = {
             self.label10.text().rstrip(": "): self.text_init1.text(),
